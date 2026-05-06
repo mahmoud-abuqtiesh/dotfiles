@@ -1,0 +1,48 @@
+# ~/.gitconfig — managed by dotfiles. Identity (name/email) and any
+# per-machine secrets go in ~/.gitconfig.local (gitignored).
+
+[include]
+	path = ~/.gitconfig.local
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = true
+
+[push]
+	autoSetupRemote = true
+	default = simple
+
+[fetch]
+	prune = true
+
+[rebase]
+	autoStash = true
+	autoSquash = true
+
+[rerere]
+	enabled = true
+
+[merge]
+	conflictstyle = diff3
+
+[diff]
+	colorMoved = default
+	algorithm = histogram
+
+[core]
+	pager = delta
+	editor = nvim
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	side-by-side = true
+	navigate = true
+	line-numbers = true
+	syntax-theme = Catppuccin-mocha
+
+[branch]
+	sort = -committerdate

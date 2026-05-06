@@ -1,0 +1,11 @@
+# Per-machine override files — never tracked.
+kitty/.config/kitty/kitty-custom.conf
+
+# Editor / OS junk
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Local-only backups created by install.sh
+*.pre-dotfiles.*

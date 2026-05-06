@@ -1,0 +1,16 @@
+# Copy this file to ~/.gitconfig.local (gitignored) and edit. The main
+# ~/.gitconfig (tracked) `include`s it. Lets each machine carry its own
+# identity / signing key without forking the shared config.
+
+[user]
+	name = Your Name
+	email = you@example.com
+	# signingkey = ABCD1234   ; uncomment if you sign commits
+
+# [commit]
+# 	gpgsign = true
+
+# Per-machine overrides. For example, set a different default editor on a
+# server where nvim isn't installed:
+# [core]
+# 	editor = vim
