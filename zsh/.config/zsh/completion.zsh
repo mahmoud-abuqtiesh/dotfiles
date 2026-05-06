@@ -1,24 +1,15 @@
-# Completion system + fzf-tab styles.
-
-autoload -Uz compinit
-# -C: skip security check (faster); cache for the day
-() {
-  local zcd="${ZDOTDIR:-$HOME}/.zcompdump"
-  if [[ -n "$zcd"(#qN.mh+24) ]]; then
-    compinit
-  else
-    compinit -C
-  fi
-}
+# Completion zstyles. compinit itself runs in plugins.zsh (must happen before
+# fzf-tab is loaded). This file only configures behavior.
 
 # Case-insensitive, then partial-word, then substring matching.
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+# Disable zsh's own menu so fzf-tab can take over.
 zstyle ':completion:*' menu no
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*:descriptions' format '[%d]'
 
-# fzf-tab integrations (only meaningful if the plugin loaded).
+# fzf-tab integrations (only effective if the plugin loaded).
 zstyle ':fzf-tab:*' use-fzf-default-opts yes
 zstyle ':fzf-tab:*' switch-group '<' '>'
 # cd: tree preview of target dir

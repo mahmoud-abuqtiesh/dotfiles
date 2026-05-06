@@ -51,12 +51,18 @@ if ! command -v eza >/dev/null; then
 fi
 
 # fzf: install from upstream git (apt's fzf is too old for `fzf --zsh`).
-if [[ ! -d "$HOME/.fzf" ]]; then
-  echo "==> installing fzf from upstream"
-  git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf"
-  "$HOME/.fzf/install" --bin
-  # Symlink into ~/.local/bin so the fzf binary is on PATH without
-  # needing the official installer's shell mods (we manage those in zshrc).
+# Verify the binary is on PATH, not just the directory — a partial / interrupted
+# previous run can leave ~/.fzf populated without ~/.local/bin/fzf symlinked.
+if ! command -v fzf >/dev/null; then
+  if [[ ! -d "$HOME/.fzf" ]]; then
+    echo "==> cloning fzf"
+    git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf"
+  fi
+  if [[ ! -x "$HOME/.fzf/bin/fzf" ]]; then
+    echo "==> building fzf binary"
+    "$HOME/.fzf/install" --bin
+  fi
+  echo "==> symlinking fzf onto PATH"
   mkdir -p "$HOME/.local/bin"
   ln -sf "$HOME/.fzf/bin/fzf" "$HOME/.local/bin/fzf"
 fi
@@ -89,11 +95,16 @@ if ! command -v delta >/dev/null; then
   rm /tmp/delta.deb
 fi
 
-# thefuck (via pip — apt's package is often broken)
-if ! command -v thefuck >/dev/null; then
-  echo "==> installing thefuck"
-  pip3 install --user --break-system-packages thefuck 2>/dev/null \
-    || pip3 install --user thefuck
+# Typo corrector: thefuck is broken on Python 3.12+ (uses removed `imp`
+# module) and unmaintained since 2022. Verify any existing install actually
+# works; otherwise skip with a hint to use pay-respects instead.
+if command -v thefuck >/dev/null; then
+  if ! thefuck --alias >/dev/null 2>&1; then
+    echo "warn: thefuck is installed but broken (likely Python 3.12 'imp' issue)."
+    echo "      consider: pip uninstall -y thefuck && cargo install pay-respects"
+  fi
+elif ! command -v pay-respects >/dev/null; then
+  echo "==> skipping typo corrector (install manually: cargo install pay-respects)"
 fi
 
 # rbenv + ruby-build (Ruby version manager)

@@ -1,27 +1,38 @@
 # fzf shell integration: ctrl+t (file picker), ctrl+r (history), and global defaults.
-# Requires fzf >= 0.48 for `fzf --zsh`. bootstrap-remote.sh installs from upstream
-# git to ensure that.
 
 if (( $+commands[fzf] )); then
-  # Native zsh integration (key-bindings + completions).
-  source <(fzf --zsh) 2>/dev/null
-
-  # Fall back to distro paths if `fzf --zsh` isn't supported (older fzf).
-  if [[ $? -ne 0 ]]; then
-    [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]] && \
-      source /usr/share/doc/fzf/examples/key-bindings.zsh
-    [[ -f /usr/share/doc/fzf/examples/completion.zsh ]] && \
-      source /usr/share/doc/fzf/examples/completion.zsh
+  # Prefer `fzf --zsh` (single-command integration, fzf >= 0.48).
+  # Probe explicitly because older fzf prints to stderr but exits 0 from
+  # `source <(fzf --zsh)` after sourcing an empty stream.
+  if fzf --zsh >/dev/null 2>&1; then
+    source <(fzf --zsh)
+  else
+    # Fallbacks for older / distro-packaged fzf.
+    for _f in \
+      /usr/share/doc/fzf/examples/key-bindings.zsh \
+      /usr/share/fzf/key-bindings.zsh \
+      "$HOME/.fzf/shell/key-bindings.zsh"
+    do
+      [[ -f "$_f" ]] && { source "$_f"; break }
+    done
+    for _f in \
+      /usr/share/doc/fzf/examples/completion.zsh \
+      /usr/share/fzf/completion.zsh \
+      "$HOME/.fzf/shell/completion.zsh"
+    do
+      [[ -f "$_f" ]] && { source "$_f"; break }
+    done
+    unset _f
   fi
 
-  # Use fd if available — respects .gitignore and is fast.
+  # Use fd if available — respects .gitignore, fast.
   if (( $+commands[fd] )); then
     export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
     export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
   fi
 
-  # Layout + colors. Smart preview for ctrl+t (files) when bat is around.
+  # Layout + Catppuccin Mocha colors. Smart preview for ctrl+t when bat is around.
   export FZF_DEFAULT_OPTS="
     --height=60% --layout=reverse --border --info=inline
     --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8
@@ -31,8 +42,13 @@ if (( $+commands[fzf] )); then
   "
   if (( $+commands[bat] )); then
     export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range=:300 {}'"
+  elif (( $+commands[batcat] )); then
+    export FZF_CTRL_T_OPTS="--preview 'batcat --color=always --style=numbers --line-range=:300 {}'"
   fi
+
+  # `fzf --zsh` binds Tab to its own fzf-completion widget, which bypasses
+  # fzf-tab. Re-enable fzf-tab so it owns Tab again.
+  (( $+functions[enable-fzf-tab] )) && enable-fzf-tab
 fi
 
-# --- fzf-git.sh provides the ctrl+g chord (branches, hashes, files, tags, stashes, remotes).
-# It's loaded as a Zap plug in plugins.zsh; nothing to source here.
+# fzf-git.sh provides the ctrl+g chord — loaded as a Zap plug in plugins.zsh.
