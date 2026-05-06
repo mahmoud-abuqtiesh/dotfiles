@@ -30,5 +30,6 @@ alias h='history'
 alias reload='exec zsh'
 
 # Suppress you-should-use reminder for interactive `rm -i` etc. (otherwise it
-# nags every time). We ignore aliases prefixed with shell builtins.
-export YSU_IGNORED_ALIASES=("rm" "mv" "cp" "mkdir")
+# nags every time). We ignore aliases prefixed with shell builtins. `reload`
+# is also ignored so YSU doesn't suggest it every time we type `exec zsh`.
+export YSU_IGNORED_ALIASES=("rm" "mv" "cp" "mkdir" "reload")
