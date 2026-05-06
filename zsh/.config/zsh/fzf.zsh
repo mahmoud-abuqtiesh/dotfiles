@@ -33,13 +33,19 @@ if (( $+commands[fzf] )); then
   fi
 
   # Layout + Catppuccin Mocha colors. Smart preview for ctrl+t when bat is around.
+  # NOTE: `selected-bg` was added in fzf 0.50 and breaks older builds (e.g.
+  # Ubuntu 24.04's apt fzf 0.44.1 errors with "invalid color specification"
+  # which causes ^R/^T to exit silently). Add it conditionally.
   export FZF_DEFAULT_OPTS="
     --height=60% --layout=reverse --border --info=inline
     --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8
     --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc
     --color=marker:#b4befe,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8
-    --color=selected-bg:#45475a
   "
+  # Probe whether this fzf accepts selected-bg before adding it.
+  if echo | fzf --filter='' --color=selected-bg:'#45475a' >/dev/null 2>&1; then
+    export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=selected-bg:#45475a"
+  fi
   if (( $+commands[bat] )); then
     export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range=:300 {}'"
   elif (( $+commands[batcat] )); then
