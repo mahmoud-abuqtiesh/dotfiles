@@ -46,3 +46,6 @@
 
 [branch]
 	sort = -committerdate
+
+[alias]
+	co = checkout
