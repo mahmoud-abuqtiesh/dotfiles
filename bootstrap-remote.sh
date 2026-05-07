@@ -31,9 +31,17 @@ APT_PKGS=(
   build-essential libssl-dev libreadline-dev zlib1g-dev libffi-dev libyaml-dev
   bat fd-find ripgrep tldr direnv
   python3-pip
-  nodejs npm
 )
 sudo apt-get install -y "${APT_PKGS[@]}"
+
+# Node.js + npx (needed for ccstatusline statusline). If an existing Node
+# install (NodeSource, nvm, asdf) already provides npx, do nothing.
+# Otherwise install Ubuntu's nodejs+npm pair together — installing only
+# `npm` against a NodeSource nodejs would conflict.
+if ! command -v npx >/dev/null; then
+  echo "==> installing nodejs + npm"
+  sudo apt-get install -y nodejs npm
+fi
 
 # eza: in Ubuntu 24.04+, available via apt. Otherwise add the eza repo.
 if ! command -v eza >/dev/null; then
