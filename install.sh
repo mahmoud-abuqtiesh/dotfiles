@@ -23,7 +23,11 @@ for pkg in "${PACKAGES[@]}"; do
     # Skip the .example template — never stowed; user copies it manually.
     [[ "$rel" == *.example ]] && continue
     target="$HOME/$rel"
-    if [[ -e "$target" && ! -L "$target" ]]; then
+    # Skip if the target already resolves to the source (e.g. a parent dir
+    # is a stow symlink into this repo) — otherwise mv would rename the
+    # real file inside the repo.
+    if [[ -e "$target" && ! -L "$target" \
+          && "$(readlink -f -- "$target")" != "$(readlink -f -- "$src")" ]]; then
       backup="$target.pre-dotfiles.$TS"
       echo "backing up $target -> $backup"
       mv "$target" "$backup"

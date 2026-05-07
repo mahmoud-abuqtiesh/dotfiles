@@ -20,3 +20,6 @@ unset _f
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# npm global bin (added for codex CLI)
+export PATH="$HOME/.npm-global/bin:$PATH"

@@ -1,22 +1,44 @@
 {
-  "model": "opus",
-  "effortLevel": "high",
-  "skipDangerousModePermissionPrompt": true,
-  "editorMode": "vim",
-  "tui": "fullscreen",
-  "theme": "dark",
-  "showTurnDuration": true,
-  "spinnerTipsEnabled": true,
-  "terminalProgressBarEnabled": true,
-  "preferredNotifChannel": "kitty",
   "env": {
     "CLAUDE_CODE_NO_FLICKER": "1"
   },
+  "includeCoAuthoredBy": false,
+  "skillListingBudgetFraction": 0.03,
+  "model": "opus",
   "statusLine": {
     "type": "command",
     "command": "npx -y ccstatusline@latest",
     "padding": 0,
     "refreshInterval": 10,
     "hideVimModeIndicator": true
-  }
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true,
+    "andrej-karpathy-skills@karpathy-skills": true,
+    "codex@openai-codex": true
+  },
+  "extraKnownMarketplaces": {
+    "karpathy-skills": {
+      "source": {
+        "source": "github",
+        "repo": "forrestchang/andrej-karpathy-skills"
+      }
+    },
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      }
+    }
+  },
+  "spinnerTipsEnabled": true,
+  "effortLevel": "high",
+  "tui": "fullscreen",
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "dark",
+  "editorMode": "vim",
+  "preferredNotifChannel": "kitty",
+  "showTurnDuration": true,
+  "terminalProgressBarEnabled": true,
+  "skipAutoPermissionPrompt": true
 }
