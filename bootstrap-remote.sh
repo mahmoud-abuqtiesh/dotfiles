@@ -31,6 +31,7 @@ APT_PKGS=(
   build-essential libssl-dev libreadline-dev zlib1g-dev libffi-dev libyaml-dev
   bat fd-find ripgrep tldr direnv
   python3-pip
+  nodejs npm
 )
 sudo apt-get install -y "${APT_PKGS[@]}"
 

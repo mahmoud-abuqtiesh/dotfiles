@@ -33,3 +33,10 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
+
+# Word-wise motion. Without these, kitty's Ctrl+Arrow escape (\e[1;5C/D) is
+# unbound and the trailing C/D self-inserts at the prompt.
+bindkey '^[[1;5C' forward-word
+bindkey '^[[1;5D' backward-word
+bindkey '^[[1;3C' forward-word    # Alt+Right
+bindkey '^[[1;3D' backward-word   # Alt+Left

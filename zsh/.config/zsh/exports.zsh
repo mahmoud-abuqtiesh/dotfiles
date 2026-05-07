@@ -39,5 +39,8 @@ export LC_ALL="${LC_ALL:-en_US.UTF-8}"
 
 # --- bat / less ---
 export PAGER="${PAGER:-less}"
-export LESS='-R --mouse'
+# -R: pass through ANSI color escapes (delta needs this).
+# No --mouse: letting less grab mouse events breaks click-drag selection in
+# kitty for git log/diff. Use shift+scroll for scrollback if desired.
+export LESS='-R'
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"  # if bat exists, syntax-highlights man pages

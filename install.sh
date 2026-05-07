@@ -6,7 +6,7 @@
 set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PACKAGES=(kitty zsh git)
+PACKAGES=(kitty zsh git claude)
 TS="$(date +%Y%m%d-%H%M%S)"
 
 if ! command -v stow >/dev/null 2>&1; then

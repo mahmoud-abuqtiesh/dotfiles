@@ -1,0 +1,22 @@
+{
+  "model": "opus",
+  "effortLevel": "high",
+  "skipDangerousModePermissionPrompt": true,
+  "editorMode": "vim",
+  "tui": "fullscreen",
+  "theme": "dark",
+  "showTurnDuration": true,
+  "spinnerTipsEnabled": true,
+  "terminalProgressBarEnabled": true,
+  "preferredNotifChannel": "kitty",
+  "env": {
+    "CLAUDE_CODE_NO_FLICKER": "1"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y ccstatusline@latest",
+    "padding": 0,
+    "refreshInterval": 10,
+    "hideVimModeIndicator": true
+  }
+}
