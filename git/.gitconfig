@@ -42,7 +42,7 @@
 	side-by-side = true
 	navigate = true
 	line-numbers = true
-	syntax-theme = Catppuccin-mocha
+	syntax-theme = Catppuccin Mocha
 
 [branch]
 	sort = -committerdate

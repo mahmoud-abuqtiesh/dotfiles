@@ -123,6 +123,20 @@ if [[ ! -d "$HOME/.rbenv" ]]; then
   git clone --depth 1 https://github.com/rbenv/ruby-build.git "$HOME/.rbenv/plugins/ruby-build"
 fi
 
+# Catppuccin Mocha theme for bat — referenced by git/.gitconfig's
+# delta.syntax-theme. Without this, `git log` prints a "Unknown theme" warning.
+if command -v bat >/dev/null || command -v batcat >/dev/null; then
+  BAT_BIN="$(command -v bat || command -v batcat)"
+  BAT_THEME_DIR="$("$BAT_BIN" --config-dir)/themes"
+  if [[ ! -f "$BAT_THEME_DIR/Catppuccin Mocha.tmTheme" ]]; then
+    echo "==> installing Catppuccin Mocha bat theme"
+    mkdir -p "$BAT_THEME_DIR"
+    curl -fsSL "https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Mocha.tmTheme" \
+      -o "$BAT_THEME_DIR/Catppuccin Mocha.tmTheme"
+    "$BAT_BIN" cache --build >/dev/null
+  fi
+fi
+
 # Zap (zsh plugin manager)
 if [[ ! -f "$HOME/.local/share/zap/zap.zsh" ]]; then
   echo "==> installing Zap"
