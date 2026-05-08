@@ -1,12 +1,12 @@
 {
+  "skillListingBudgetFraction": 0.03,
   "env": {
     "CLAUDE_CODE_NO_FLICKER": "1"
   },
+  "includeCoAuthoredBy": false,
   "permissions": {
     "defaultMode": "auto"
   },
-  "includeCoAuthoredBy": false,
-  "skillListingBudgetFraction": 0.03,
   "model": "opus",
   "statusLine": {
     "type": "command",
@@ -18,7 +18,8 @@
   "enabledPlugins": {
     "superpowers@claude-plugins-official": true,
     "andrej-karpathy-skills@karpathy-skills": true,
-    "codex@openai-codex": true
+    "codex@openai-codex": true,
+    "caveman@caveman": true
   },
   "extraKnownMarketplaces": {
     "karpathy-skills": {
@@ -31,6 +32,12 @@
       "source": {
         "source": "github",
         "repo": "openai/codex-plugin-cc"
+      }
+    },
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
       }
     }
   },
