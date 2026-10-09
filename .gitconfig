@@ -32,7 +32,7 @@
 	algorithm = histogram
 
 [core]
-	pager = delta
+	pager = hunk pager
 	editor = nvim
 
 [interactive]
@@ -49,3 +49,5 @@
 
 [alias]
 	co = checkout
+[pager]
+	log = less -FRX

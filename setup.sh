@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Idempotent installer for the binaries the zsh + git + kitty configs expect.
-# Targets Debian / Ubuntu (apt). Comments below show equivalents for other
-# distros — adapt by hand if needed. Safe to rerun.
+# Installs the binaries the zsh + git + kitty configs expect. Targets
+# Debian / Ubuntu (apt); comments below show equivalents for other distros.
+# Safe to rerun. Does NOT touch symlinks — that's `stow -t ~ .`.
 #
-# Run this once on a fresh machine (laptop, PC, dev box) BEFORE ./install.sh.
+# Run once on a fresh machine, then stow.
 
 set -euo pipefail
 
@@ -152,13 +152,13 @@ fi
 
 cat <<'EOF'
 
-✔ bootstrap complete
+✔ setup complete
 
 next:
-  cd ~/dotfiles && ./install.sh
+  cd ~/dotfiles && stow -t ~ .
   log out and back in (so the default shell change takes effect)
   in zsh:  p10k configure   to pick a prompt style
-  put your name/email in ~/.gitconfig.local
+  write your name/email into ~/.gitconfig.local (gitignored, see README)
 
 reminders:
   - The MesloLGS NF font needs to be installed in your local terminal (kitty),

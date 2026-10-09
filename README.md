@@ -1,53 +1,50 @@
 # dotfiles
 
-Personal config shared between laptop, PC, and the dev box. Managed with [GNU Stow](https://www.gnu.org/software/stow/).
+Personal config shared between laptop, PC, and the dev box. Two jobs: version-control the configs, and rebuild a new machine from scratch. Managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
 ## Layout
 
-| Package | Stows to | What's in it |
-|---|---|---|
-| `kitty/` | `~/.config/kitty/` | modular kitty config (theme, fonts, ui, keys, ssh) |
-| `zsh/` | `~/`, `~/.config/zsh/` | `.zshrc`, `.p10k.zsh`, modular config snippets |
-| `git/` | `~/` | `.gitconfig` with delta + sane defaults |
+The repo **is** the stow package — its tree mirrors `$HOME` directly:
 
-Per-machine override files (gitignored, loaded last):
-- `~/.config/kitty/kitty-custom.conf`
-- `~/.zshrc.local`
-- `~/.gitconfig.local` (your name/email go here)
+| In repo | Stows to |
+|---|---|
+| `.config/kitty/` | `~/.config/kitty/` |
+| `.config/zsh/`, `.zshrc`, `.p10k.zsh` | `~/.config/zsh/`, `~/` |
+| `.config/ccstatusline/`, `.claude/` | `~/.config/ccstatusline/`, `~/.claude/` |
+| `.gitconfig` | `~/.gitconfig` |
+
+`.stow-local-ignore` keeps repo-only files (`README.md`, `setup.sh`, `.git*`) out of `$HOME`.
 
 ## Install
-
-### Fresh laptop / PC
 
 ```sh
 git clone <this-repo> ~/dotfiles
 cd ~/dotfiles
-./bootstrap-remote.sh   # installs all binaries (zsh, fzf, eza, lazygit, rbenv, ...)
-./install.sh            # stows configs + creates the .local stub files
+./setup.sh          # installs binaries (zsh, fzf, eza, lazygit, rbenv, stow, ...)
+stow -t ~ .         # symlinks everything into $HOME
 ```
 
 Then log out / back in (so zsh becomes the default shell) and:
 
 ```sh
-p10k configure          # pick a prompt style — writes through symlink into the repo
-$EDITOR ~/.gitconfig.local   # set your name + email
+p10k configure                 # writes through the symlink into the repo
+$EDITOR ~/.gitconfig.local     # name + email (see "Per-machine overrides")
 ```
 
-### Dev box
+On the dev box the flow is identical — `ssh` in (via `kitten ssh`, so terminfo
+travels), clone, `./setup.sh`, `stow -t ~ .`, then log out and back in.
 
-Same flow:
+## Adding a file later
+
+Put it at its real `$HOME`-relative path inside the repo, then:
 
 ```sh
-ssh dev@development-mahmoudabuqteish        # uses kitten ssh; terminfo travels
-git clone <this-repo> ~/dotfiles
-cd ~/dotfiles
-./bootstrap-remote.sh
-./install.sh
-exit                # log out
-ssh dev@...         # re-enter — now p10k is your prompt on the remote
+cd ~/dotfiles && stow -R -t ~ .
 ```
 
-`./install.sh` is idempotent. Re-run anytime after pulling new commits.
+Files under an already-folded directory (`~/.config/kitty` etc. are symlinks to
+the repo directory) appear with no re-stow at all. New top-level dotfiles, and
+anything under `~/.claude` (a real directory), need the `-R` above.
 
 ## What you get
 
@@ -57,7 +54,7 @@ ssh dev@...         # re-enter — now p10k is your prompt on the remote
 - Splits + stack layouts (`ctrl+shift+\` and `ctrl+shift+'` to split, `ctrl+shift+space` to zoom).
 - `ctrl+shift+d` opens a new tab into your dev SSH.
 - `ssh` aliased to `kitten ssh` so terminfo + zsh dotfiles travel automatically.
-- Keybindings cheat sheet at `kitty/.config/kitty/keys.conf`.
+- Keybindings cheat sheet at `.config/kitty/keys.conf`.
 
 ### zsh
 
@@ -83,7 +80,15 @@ ssh dev@...         # re-enter — now p10k is your prompt on the remote
 | `~/.zshrc.local` | machine-specific env vars, work-vs-personal aliases |
 | `~/.gitconfig.local` | name, email, signing key |
 
-Loaded last; overrides win.
+All three are gitignored, loaded last, and optional — each loader skips a
+missing file silently. Create them by hand; `~/.gitconfig.local` wants:
+
+```ini
+[user]
+	name = Your Name
+	email = you@example.com
+	# signingkey = ABCD1234
+```
 
 ## Fonts
 
@@ -132,7 +137,7 @@ Kitty ships `kitty +kitten quick_access_terminal`. Bind a system shortcut in GNO
 | `ctrl+shift+'` | Horizontal split (down) |
 | `ctrl+shift+d` | New tab → SSH dev box |
 
-Inherited kitty defaults (hints, layout cycling, scrollback navigation) are documented in `kitty/.config/kitty/keys.conf` as comments.
+Inherited kitty defaults (hints, layout cycling, scrollback navigation) are documented in `.config/kitty/keys.conf` as comments.
 
 ## fzf cheat sheet (zsh)
 

@@ -23,3 +23,15 @@ unset _f
 
 # npm global bin (added for codex CLI)
 export PATH="$HOME/.npm-global/bin:$PATH"
+
+# bun completions
+[ -s "/home/dev/.bun/_bun" ] && source "/home/dev/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+alias limits='usage-tui'
+
+# opencode
+export PATH=/home/dev/.opencode/bin:$PATH

@@ -1,0 +1,7 @@
+# Replaces stow's default ignore list entirely — anything not listed here
+# gets symlinked into $HOME.
+^/\.git$
+^/\.gitignore$
+^/\.stow-local-ignore$
+^/README\.md$
+^/setup\.sh$

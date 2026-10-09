@@ -1,0 +1,351 @@
+{
+  "autoMode": {
+    "environment": [
+      "### Org-wide",
+      "**Organization**: None configured",
+      "**Cloud provider(s)**: None configured",
+      "**Repository visibility**: Private \u2014 mahmoud-abuqtiesh/alfred-assistant (origin)",
+      "**Internal sharing / snippet hosting**: None configured \u2014 treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: ansible-vault, bw (Bitwarden CLI) \u2014 observed in shell history, scope to this project's use",
+      "**Default / protected branches**: default branch unknown (origin/HEAD unset); no rulesets or protected branches listed via gh",
+      "**CI/CD deploy targets**: None configured",
+      "**Network posture**: None configured",
+      "**Host containment**: None configured \u2014 assume Claude Code runs on an ordinary developer machine with open internet",
+      "**Source control**: The trusted repo (mahmoud-abuqtiesh/alfred-assistant) and its origin remote only",
+      "**Trusted internal domains**: alfred.mahmoudabuqteish.development.maqsam.com",
+      "**Trusted cloud buckets**: None configured",
+      "**Key internal services**: alfred-server (Rust + SQLite, 127.0.0.1:8650), Hermes (127.0.0.1:8642), Caddy reverse proxy",
+      "**Internal package registry**: None configured",
+      "**Sensitive data locations & audiences**: ~/.config/alfred/token, ~/.hermes/.env (API_SERVER_KEY) \u2014 credentials; share only with audiences cleared at the [named+specifics] bar",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any namespace, host, or container whose name carries prod or production as a whole word or name segment",
+      "**Protected deployment namespaces / environments**: None configured \u2014 fall back to the Sensitive remote targets heuristic",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries prod or production as a whole word or name segment",
+      "### User-specific",
+      "**Primary use of Claude Code**: software development (personal command-center project, Alfred/Hermes)",
+      "**Trusted repo**: /home/dev/work/pacock-learn (mahmoud-abuqtiesh/alfred-assistant, private) and its origin remote",
+      "**Org-specific CLIs**: None configured",
+      "routine under dev/ prefix: screenshot inspection under /home/dev/work/screenshots/ per ~/.claude/CLAUDE.md"
+    ]
+  },
+  "editorMode": "vim",
+  "effortLevel": "xhigh",
+  "enabledPlugins": {
+    "andrej-karpathy-skills@karpathy-skills": true,
+    "brain@brain": true,
+    "caveman@caveman": true,
+    "codex@openai-codex": true,
+    "i-have-adhd@i-have-adhd": true,
+    "mattpocock-skills@claude-plugins-official": true,
+    "openviking-memory@openviking": true,
+    "ponytail@ponytail": true,
+    "ruby-lsp@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true
+  },
+  "env": {
+    "CLAUDE_CODE_NO_FLICKER": "1"
+  },
+  "extraKnownMarketplaces": {
+    "brain": {
+      "source": {
+        "repo": "abuaboud/brain-plugin",
+        "source": "github"
+      }
+    },
+    "caveman": {
+      "source": {
+        "repo": "JuliusBrussee/caveman",
+        "source": "github"
+      }
+    },
+    "i-have-adhd": {
+      "source": {
+        "repo": "ayghri/i-have-adhd",
+        "source": "github"
+      }
+    },
+    "karpathy-skills": {
+      "source": {
+        "repo": "forrestchang/andrej-karpathy-skills",
+        "source": "github"
+      }
+    },
+    "openai-codex": {
+      "source": {
+        "repo": "openai/codex-plugin-cc",
+        "source": "github"
+      }
+    },
+    "openviking": {
+      "source": {
+        "path": "/home/dev/.openviking/marketplaces/openviking-claude",
+        "source": "directory"
+      }
+    },
+    "ponytail": {
+      "source": {
+        "repo": "DietrichGebert/ponytail",
+        "source": "github"
+      }
+    }
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "async": true,
+            "command": "'/home/dev/.local/bin/moshi-hook' claude-hook",
+            "type": "command"
+          }
+        ],
+        "matcher": "permission_prompt"
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "async": false,
+            "command": "'/home/dev/.local/bin/moshi-hook' claude-hook",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "async": true,
+            "command": "'/home/dev/.local/bin/moshi-hook' claude-hook",
+            "type": "command"
+          }
+        ],
+        "matcher": "AskUserQuestion"
+      },
+      {
+        "hooks": [
+          {
+            "async": true,
+            "command": "'/home/dev/.local/bin/moshi-hook' claude-hook",
+            "type": "command"
+          }
+        ],
+        "matcher": "ExitPlanMode"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "rtk hook claude",
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      },
+      {
+        "hooks": [
+          {
+            "async": true,
+            "command": "'/home/dev/.local/bin/moshi-hook' claude-hook",
+            "type": "command"
+          }
+        ],
+        "matcher": "AskUserQuestion"
+      },
+      {
+        "hooks": [
+          {
+            "async": true,
+            "command": "'/home/dev/.local/bin/moshi-hook' claude-hook",
+            "type": "command"
+          }
+        ],
+        "matcher": "ExitPlanMode"
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "async": true,
+            "command": "'/home/dev/.local/bin/moshi-hook' claude-hook",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "command": "echo '{\"systemMessage\":\"Reminder: /rename this session to something memorable\"}'",
+            "timeout": 2,
+            "type": "command"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "command": "bash '/home/dev/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10,
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      },
+      {
+        "hooks": [
+          {
+            "async": true,
+            "command": "'/home/dev/.local/bin/moshi-hook' claude-hook",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "async": true,
+            "command": "'/home/dev/.local/bin/moshi-hook' claude-hook",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "async": true,
+            "command": "'/home/dev/.local/bin/moshi-hook' claude-hook",
+            "type": "command"
+          }
+        ]
+      }
+    ]
+  },
+  "includeCoAuthoredBy": false,
+  "model": "opus",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
+  },
+  "permissions": {
+    "allow": [
+      "mcp__phabricator__phabricator_task_search",
+      "mcp__phabricator__phabricator_task_status_search",
+      "mcp__phabricator__phabricator_task_priority_search",
+      "mcp__phabricator__phabricator_revision_search",
+      "mcp__phabricator__phabricator_diff_search",
+      "mcp__phabricator__phabricator_diff_raw",
+      "mcp__phabricator__phabricator_revision_paths",
+      "mcp__phabricator__phabricator_repository_search",
+      "mcp__phabricator__phabricator_commit_search",
+      "mcp__phabricator__phabricator_repository_browse",
+      "mcp__phabricator__phabricator_repository_file_content",
+      "mcp__phabricator__phabricator_branch_search",
+      "mcp__phabricator__phabricator_tag_search",
+      "mcp__phabricator__phabricator_repository_file_history",
+      "mcp__phabricator__phabricator_repository_code_search",
+      "mcp__phabricator__phabricator_user_whoami",
+      "mcp__phabricator__phabricator_user_search",
+      "mcp__phabricator__phabricator_project_search",
+      "mcp__phabricator__phabricator_column_search",
+      "mcp__phabricator__phabricator_paste_search",
+      "mcp__phabricator__phabricator_document_search",
+      "mcp__phabricator__phabricator_blog_search",
+      "mcp__phabricator__phabricator_blog_post_search",
+      "mcp__phabricator__phabricator_file_search",
+      "mcp__phabricator__phabricator_file_info",
+      "mcp__phabricator__phabricator_buildable_search",
+      "mcp__phabricator__phabricator_build_search",
+      "mcp__phabricator__phabricator_build_target_search",
+      "mcp__phabricator__phabricator_build_log_search",
+      "mcp__phabricator__phabricator_build_plan_search",
+      "mcp__phabricator__phabricator_owners_search",
+      "mcp__phabricator__phabricator_feed_query",
+      "mcp__phabricator__phabricator_conpherence_search",
+      "mcp__phabricator__phabricator_conpherence_read",
+      "mcp__phabricator__phabricator_audit_query",
+      "mcp__phabricator__phabricator_phid_lookup",
+      "mcp__phabricator__phabricator_phid_query",
+      "mcp__phabricator__phabricator_transaction_search",
+      "mcp__phabricator__phabricator_version",
+      "Bash(xargs ls *)",
+      "Bash(bundle exec *)",
+      "Bash(rubocop --version)",
+      "Bash(date *)",
+      "Bash(echo *)",
+      "Bash(sed *)",
+      "Bash(grep *)",
+      "Bash(find /tmp/*)",
+      "Bash(find /home/dev/maqsam/*)",
+      "Bash(ls *)",
+      "Bash(cat /tmp/*)",
+      "Bash(file /tmp/*)",
+      "Bash(wc *)",
+      "Bash(if [ -d /tmp/* ] && find /tmp/* *)",
+      "Bash(if [ -d /tmp/* ]*)",
+      "Bash(if [ -f /tmp/* ]*)",
+      "Bash(if [ -e /tmp/* ]*)",
+      "Bash(if find /tmp/* *)",
+      "Bash(if find /home/dev/maqsam/* *)",
+      "Bash(test *)",
+      "Bash([ *)",
+      "Bash(TS=$(date *)*)",
+      "Read(//home/dev/.aws/**)",
+      "Write(/tmp/**)",
+      "Edit(/tmp/**)",
+      "Bash(AWS_PROFILE=* aws sts get-caller-identity)",
+      "Bash(AWS_PROFILE=* ansible-inventory *)",
+      "Bash(AWS_PROFILE=* ansible-playbook *)",
+      "Bash(ansible-inventory *)",
+      "Bash(ansible-playbook *)",
+      "Bash(cd /home/dev/maqsam/prodops && ansible-playbook *)",
+      "Bash(cd /home/dev/maqsam/prodops && AWS_PROFILE=* ansible-playbook *)",
+      "Bash(cd /home/dev/maqsam/prodops && ansible-inventory *)",
+      "Bash(cd /home/dev/maqsam/prodops && AWS_PROFILE=* ansible-inventory *)",
+      "Bash(caddy fmt *)",
+      "Bash(caddy adapt *)",
+      "Bash(diff *)",
+      "Bash(ssh -J dev@jumpbox.tool.maqsam.com *)",
+      "mcp__claude_ai_Notion__notion-fetch",
+      "mcp__claude_ai_Notion__notion-search",
+      "Read(//home/dev/docs/**)",
+      "Bash(xargs basename *)",
+      "Bash(xargs -I {} basename {})",
+      "Bash(ssh production-av-lighthouse-01 *)",
+      "Bash(xargs -I{} echo {})",
+      "Bash(git ls-remote *)",
+      "Bash(git checkout *)",
+      "Bash(python3 -c ' *)",
+      "Bash(git *)",
+      "Bash(arc call-conduit *)"
+    ],
+    "defaultMode": "auto"
+  },
+  "preferredNotifChannel": "kitty",
+  "showTurnDuration": true,
+  "skillListingBudgetFraction": 0.03,
+  "skipAutoPermissionPrompt": true,
+  "skipDangerousModePermissionPrompt": true,
+  "skipWorkflowUsageWarning": true,
+  "spinnerTipsEnabled": true,
+  "statusLine": {
+    "command": "npx -y ccstatusline@latest",
+    "hideVimModeIndicator": true,
+    "padding": 0,
+    "refreshInterval": 10,
+    "type": "command"
+  },
+  "terminalProgressBarEnabled": true,
+  "theme": "dark",
+  "tui": "fullscreen"
+}

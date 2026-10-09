@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "lines": [
     [
       {
@@ -19,6 +19,28 @@
         "type": "session-usage",
         "color": "hex:1A1B26",
         "backgroundColor": "hex:BB9AF7"
+      },
+      {
+        "id": "3a1f9c2e-6b7d-4e5a-9c8b-1d2e3f4a5b6c",
+        "type": "weekly-usage",
+        "color": "hex:1A1B26",
+        "backgroundColor": "hex:9AA5CE"
+      },
+      {
+        "id": "ccusage-daily-spend",
+        "type": "custom-command",
+        "commandPath": "/home/dev/.config/ccstatusline/ccusage-spend.sh daily",
+        "timeout": 3000,
+        "color": "hex:1A1B26",
+        "backgroundColor": "hex:9ECE6A"
+      },
+      {
+        "id": "ccusage-monthly-spend",
+        "type": "custom-command",
+        "commandPath": "/home/dev/.config/ccstatusline/ccusage-spend.sh monthly",
+        "timeout": 3000,
+        "color": "hex:1A1B26",
+        "backgroundColor": "hex:F7768E"
       },
       {
         "id": "eb3276a4-d85a-46c4-ace1-f6de3514ef8c",
