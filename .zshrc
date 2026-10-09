@@ -7,7 +7,7 @@ fi
 
 # --- Modular sources (order matters) ---
 ZSH_CFG="$HOME/.config/zsh"
-for _f in exports plugins completion tools fzf aliases kitty-aliases; do
+for _f in exports plugins completion tools fzf aliases; do
   [[ -f "$ZSH_CFG/$_f.zsh" ]] && source "$ZSH_CFG/$_f.zsh"
 done
 unset _f
@@ -31,7 +31,6 @@ export PATH="$HOME/.npm-global/bin:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-alias limits='usage-tui'
 
 # opencode
 export PATH=/home/dev/.opencode/bin:$PATH

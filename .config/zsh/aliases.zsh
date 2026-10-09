@@ -1,13 +1,6 @@
 # Aliases. All guarded — silent no-op if the binary is absent (e.g. on a
 # fresh dev box before bootstrap-remote.sh runs).
 
-# --- bat → cat (handles both binary names: `bat` and Debian's `batcat`) ---
-if (( $+commands[bat] )); then
-  alias cat='bat --paging=never --style=plain'
-elif (( $+commands[batcat] )); then
-  alias cat='batcat --paging=never --style=plain'
-fi
-
 # --- eza → ls family ---
 if (( $+commands[eza] )); then
   alias ls='eza --icons=auto --group-directories-first'

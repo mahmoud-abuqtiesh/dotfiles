@@ -63,7 +63,7 @@ anything under `~/.claude` (a real directory), need the `-R` above.
 - **Plugins**: fzf-tab, autosuggestions, fast-syntax-highlighting, completions, autopair, history-substring-search, you-should-use, fzf-git.
 - **fzf** integration: `ctrl+t` files, `ctrl+r` history, `ctrl+g, b/h/f/t/s/r` for git stuff, fzf-tab replaces the tab-complete menu with fuzzy + previews.
 - **Tools**: zoxide (smart cd → use `z`), thefuck (correct typos with `fuck`), direnv, tldr, rbenv.
-- **Aliases**: `cat`→`bat`, `ls/ll/la/lt`→`eza` w/ icons, `lg`→`lazygit`. (No git/ruby/rails aliases by request.)
+- **Aliases**: `ls/ll/la/lt`→`eza` w/ icons, `lg`→`lazygit`. (No git/ruby/rails aliases by request.)
 - All tool inits + aliases are guarded — missing binaries are silent no-ops.
 
 ### git
