@@ -27,22 +27,6 @@
         "backgroundColor": "hex:9AA5CE"
       },
       {
-        "id": "ccusage-daily-spend",
-        "type": "custom-command",
-        "commandPath": "/home/dev/.config/ccstatusline/ccusage-spend.sh daily",
-        "timeout": 3000,
-        "color": "hex:1A1B26",
-        "backgroundColor": "hex:9ECE6A"
-      },
-      {
-        "id": "ccusage-monthly-spend",
-        "type": "custom-command",
-        "commandPath": "/home/dev/.config/ccstatusline/ccusage-spend.sh monthly",
-        "timeout": 3000,
-        "color": "hex:1A1B26",
-        "backgroundColor": "hex:F7768E"
-      },
-      {
         "id": "eb3276a4-d85a-46c4-ace1-f6de3514ef8c",
         "type": "reset-timer",
         "color": "hex:1A1B26",
@@ -98,16 +82,16 @@
   "powerline": {
     "enabled": true,
     "separators": [
-      ""
+      "\ue0b0"
     ],
     "separatorInvertBackground": [
       false
     ],
     "startCaps": [
-      ""
+      "\ue0b6"
     ],
     "endCaps": [
-      ""
+      "\ue0b4"
     ],
     "theme": "nord",
     "autoAlign": false,

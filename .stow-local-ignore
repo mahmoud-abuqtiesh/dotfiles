@@ -5,3 +5,7 @@
 ^/\.stow-local-ignore$
 ^/README\.md$
 ^/setup\.sh$
+^/AGENTS\.md$
+^/CLAUDE\.md$
+^/GLOSSARY(-MAP)?\.md$
+^/docs$
